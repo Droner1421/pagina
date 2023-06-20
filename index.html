@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GRUPO 603</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .navbar {
+      background-color: #343a40 !important;
+    }
+
+    h1, h2, h3 {
+      color: #343a40;
+      text-align: center;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 20px;
+      margin-top: 50px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group label {
+      font-weight: bold;
+    }
+
+    #result {
+      font-size: 18px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .table {
+      margin-top: 30px;
+    }
+
+    .btn-primary {
+      background-color: #343a40;
+      border-color: #343a40;
+    }
+
+    .btn-primary:hover {
+      background-color: #23272b;
+      border-color: #23272b;
+    }
+
+    .btn-primary:focus {
+      box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);
+    }
+
+    iframe {
+      width: 100%;
+      height: 315px;
+      border: none;
+    }
+
+    #qrcode {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="../index.html">Peso y Medidas</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="ml-auto navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="../CALCULADORA.html">Calculadora de IMC</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="..\SEGUNDO_PARCIAL.html">Parcial 2</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../PRIMER_PARCIAL.html">Parcial 1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../TABLA_MEDIA_MEDIANA_MODA.html">Tabla M,M y M</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../TABLA_COMPARATIVA.html">Tabla Comparativa</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../TABLA_DE_FRECUENCIAS.html">Tabla de frecuencias</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container">
+    <h1>Bienvenido al Grupo 603</h1>
+    <p>En esta página encontrarás diferentes herramientas para calcular el índice de masa corporal (IMC), visualizar
+      un video explicativo, consultar una tabla de datos y generar códigos QR.</p>
+  </div>
+
+  <div class="container">
+    <h2>Calculadora de IMC</h2>
+    <form id="bmiForm">
+      <div class="form-group">
+        <label for="weight">Peso (kg):</label>
+        <input type="number" class="form-control" id="weight" step="0.01" required>
+      </div>
+      <div class="form-group">
+        <label for="height">Estatura (metros):</label>
+        <input type="number" class="form-control" id="height" step="0.01" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Calcular</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <br>
+  <div class="container">
+    <h2>Video Explicativo</h2>
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe class="embed-responsive-item"
+              src="https://www.youtube.com/embed/VIDEO_ID"
+              allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <br>
+  <div class="container">
+    <h2>Tabla de Datos</h2>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Edad</th>
+        <th>Peso (kg)</th>
+        <th>Estatura (m)</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Persona 1</td>
+        <td>25</td>
+        <td>70</td>
+        <td>1.75</td>
+      </tr>
+      <tr>
+        <td>Persona 2</td>
+        <td>30</td>
+        <td>65</td>
+        <td>1.68</td>
+      </tr>
+      <tr>
+        <td>Persona 3</td>
+        <td>35</td>
+        <td>80</td>
+        <td>1.80</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <br>
+  <div class="container">
+    <h2>Generador de Código QR</h2>
+    <div id="qrcode"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('bmiForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const weight = parseFloat(document.getElementById('weight').value);
+      const height = parseFloat(document.getElementById('height').value);
+      const bmi = weight / (height * height);
+      const resultElement = document.getElementById('result');
+      resultElement.innerHTML = `Tu IMC es: ${bmi.toFixed(2)}`;
+    });
+
+    const qrCodeDiv = document.getElementById('qrcode');
+    const qrCode = new QRCode(qrCodeDiv, {
+      text: 'https://www.example.com',
+      width: 128,
+      height: 128
+    });
+  </script>
+</body>
+</html>
